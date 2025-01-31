@@ -59,3 +59,9 @@ credentials/
 # If you create any logs in your project
 logs/
 *.log
+
+# Ignore state.db files
+state.db
+
+# Ignore json files
+liked_videos.json
