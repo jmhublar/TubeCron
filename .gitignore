@@ -1,0 +1,61 @@
+# ---------------------
+# Python-Related Ignores
+# ---------------------
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / Packaging
+build/
+dist/
+eggs/
+*.egg-info/
+.eggs/
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+
+# Jupyter Notebooks checkpoints
+.ipynb_checkpoints
+
+# Virtual Environment Directories
+venv/
+.venv/
+ENV/
+env/
+
+# VSCode and other editor configurations
+.vscode/
+*.swp
+*.swo
+.idea/
+
+# ---------------
+# Project-Specific
+# ---------------
+# Token / Credential directories
+tokens/
+credentials/
+
+# If you have a generic secrets file
+*.secret
+*.key
+*.pem
+.env
+
+# If you create any logs in your project
+logs/
+*.log
