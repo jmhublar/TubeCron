@@ -5,6 +5,9 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# UV lock file
+uv.lock
+
 # Distribution / Packaging
 build/
 dist/
@@ -65,3 +68,6 @@ state.db
 
 # Ignore json files
 liked_videos.json
+
+# ignore transcripts folder
+transcripts/
