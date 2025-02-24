@@ -10,7 +10,14 @@ from transcript_handler import TranscriptHandler
 from obsidian_handler import ObsidianHandler
 
 class TubeCron:
-    def __init__(self, vault_dir=None, db_path="state.db"):
+    def __init__(
+        self,
+        vault_dir=None,
+        db_path="state.db",
+        llm_service="openai",
+        llm_model=None,
+        ollama_host="http://localhost:11434"
+    ):
         self.vault_dir = vault_dir or "/Users/cognomen/vaults/corp/corp/tubecron"
         self.db_path = db_path
         
@@ -19,7 +26,11 @@ class TubeCron:
         os.makedirs("tokens", exist_ok=True)
         
         # Initialize handlers
-        self.transcript_handler = TranscriptHandler()
+        self.transcript_handler = TranscriptHandler(
+            service=llm_service,
+            model=llm_model,
+            ollama_host=ollama_host
+        )
         self.obsidian_handler = ObsidianHandler(self.vault_dir)
         
         # Initialize database
@@ -110,10 +121,30 @@ def main():
         default=10,
         help="Number of videos to process in one batch (default: 10)"
     )
+    parser.add_argument(
+        "--llm-service",
+        choices=["openai", "ollama"],
+        default="openai",
+        help="Which LLM service to use for generating summaries (default: openai)"
+    )
+    parser.add_argument(
+        "--llm-model",
+        help="Model to use with the chosen LLM service (default: gpt-3.5-turbo-16k for OpenAI, mistral for Ollama)"
+    )
+    parser.add_argument(
+        "--ollama-host",
+        default="http://localhost:11434",
+        help="Ollama API host URL (default: http://localhost:11434)"
+    )
     args = parser.parse_args()
 
     try:
-        tubecron = TubeCron(vault_dir=args.vault_dir)
+        tubecron = TubeCron(
+            vault_dir=args.vault_dir,
+            llm_service=args.llm_service,
+            llm_model=args.llm_model,
+            ollama_host=args.ollama_host
+        )
         
         if args.action == "process":
             tubecron.process_videos(batch_size=args.batch_size)
